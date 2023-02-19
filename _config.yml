@@ -14,10 +14,10 @@ baseurl: "/"
 # Of course don't forget to change the username and projectname to YOUR username and project
 
 # Name of website
-title: AquilaOS
+title: EASYOS
 
 # Short description of your site
-description: POSIX compliant Operating System
+description: Hobby Operating System for Electrical - Electronics Engineers
 
 # --- Navigation bar options --- #
 
@@ -73,7 +73,7 @@ author:
 social-network-links:
   rss: true
   email: "bennaniaya@bennixfamily.mail"
-  facebook: aya.bennix
+  facebook: 
   github: bennixx
   twitter: bennaniaya
 #  reddit: yourname
