@@ -4,7 +4,7 @@
 # baseurl is the website's URL without the hostname
 
 # If you are building a simple GitHub user page (http://username.github.io) then use these settings:
-url: "http://aquilaos.com"
+url: "http://bennixx.github.io"
 baseurl: "/"
 
 # If you are building a GitHub project page then use these settings:
@@ -28,7 +28,7 @@ navbar-links:
   About Me: "aboutme"
   Blog: "blog/"
   Try: "v86/"
-  Github: "https://github.com/mohamed-anwar/Aquila"
+  Github: "https://github.com/bennixx/easyos"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
@@ -64,7 +64,7 @@ footer-link-col: "#404040"
 # Change all these values or delete the ones you don't want.
 # Important: you must keep the "name" parameter, everything else you can remove
 author:
-  name: Mohamed Anwar
+  name: BENNANI Aya
 
 # Select your active Social Network Links.
 # Uncomment the links you want to show in the footer and add your information to each link.
@@ -72,10 +72,10 @@ author:
 # If you want to add a new link that isn't here, you'll need to also edit the file _data/SocialNetworks.yml
 social-network-links:
   rss: true
-  email: "manwar@ieee.org"
-  facebook: manwarsleem
-  github: mohamed-anwar
-  twitter: manwar_hamza
+  email: "bennaniaya@bennixfamily.mail"
+  facebook: aya.bennix
+  github: bennixx
+  twitter: bennaniaya
 #  reddit: yourname
 #  google-plus: +DeanAttali
 #  linkedin: daattali
