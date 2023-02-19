@@ -1,0 +1,114 @@
+---
+layout: page
+title: Try EasyOS!
+subtitle: Based on v86 and xterm.js
+use-site-title: true
+---
+
+Use <code>root</code> or <code>live</code> for username and any password.
+The floppy disk image is 1.44 MB so give it sometime to load.
+
+    <link rel="stylesheet" href="xterm.css" />
+    <script src="xterm.js"></script>
+    <script src="libv86.js"></script>
+
+    <script>
+    "use strict";
+
+    window.onload = function() {
+        var emulator = window.emulator = new V86Starter({
+            memory_size: 32 * 1024 * 1024,
+            vga_memory_size: 2 * 1024 * 1024,
+            /*screen_container: document.getElementById("screen_container"),*/
+            bios: {
+                url: "seabios.bin",
+            },
+            /*
+            vga_bios: {
+                url: "bios/vgabios.bin",
+            },
+            */
+            hda: {
+                url: "Easy.img",
+            },
+
+            disable_mouse: true,
+            disable_speaker: true,
+            autostart: true,
+        });
+
+        var term = new Terminal();
+        term.open(document.getElementById('terminal'));
+        term.write("Loading EasyOS, please wait\r\n");
+
+        function chr_repeat(chr, count) {
+            var result = "";
+            while (count-- > 0) {
+                result += chr;
+            }
+
+            return result;
+        }
+
+        emulator.add_listener("download-progress", function(e) {
+
+          var line = "Downloading images ";
+
+          if (typeof e.file_index === "number" && e.file_count) {
+              line += "[" + (e.file_index + 1) + "/" + e.file_count + "] ";
+          }
+
+          if (e.total && typeof e.loaded === "number") {
+              var per100 = Math.floor(e.loaded / e.total * 40);
+              per100 = Math.min(40, Math.max(0, per100));
+
+              var per50 = Math.floor(per100 / 2);
+
+              line += (Math.floor(e.loaded / e.total * 100)) + "% [";
+              line += chr_repeat("#", per50);
+              line += chr_repeat(" ", 20 - per50);
+              line += "]\r";
+          } else {
+              line += chr_repeat(".", progress_ticks++ % 20);
+          }
+
+          term.write(line);
+
+          if (e.loaded >= e.total) {
+              term.write("\r\n");
+          }
+
+          if (e.file_index === e.file_count - 1 && e.loaded >= e.total - 2048) {
+              // last file is (almost) loaded
+              term.write("\r\nDone downloading. Starting now ...");
+              return;
+          }
+        });
+
+        term.on('key', function (key, ev) {
+            var printable = (
+              !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+            );
+
+            emulator.serial0_send(key);
+        });
+
+        term.on('paste', function (data, ev) {
+          term.write(data);
+        });
+
+        emulator.add_listener("serial0-output-char", function (c) {
+            term.write(c);
+        });
+    }
+    </script>
+
+    <div id="terminal" class="xterm"></div>
+
+<!-- A minimal structure for the ScreenAdapter defined in browser/screen.js -->
+<!--
+<div id="screen_container">
+    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+    <canvas style="display: none"></canvas>
+</div>
+-->
